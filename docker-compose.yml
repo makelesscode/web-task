@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    container_name: nginx
+    volumes:
+      - type: bind
+        source: ./app
+        target: /var/www
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/conf.d/project.conf
+    ports:
+      - "80:8080"
+    networks:
+      - app_network
+    depends_on:
+      - php
+  php:
+    container_name: php
+    image: php:7.4.8-fpm
+    working_dir: /var/www
+    volumes:
+      - type: bind
+        source: ./app
+        target: /var/www
+    restart: always
+    networks:
+      - app_network
+networks:
+  app_network:
+    driver: bridge
