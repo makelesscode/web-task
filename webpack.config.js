@@ -3,6 +3,7 @@
  */
 
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const paths = {
     js: [
@@ -13,10 +14,7 @@ const paths = {
         path.resolve(__dirname, "./src/helpers"),
         path.resolve(__dirname, "./src/index.jsx"),
     ],
-    styles: [
-        path.resolve(__dirname, "./src/styles/**/.css"),
-        path.resolve(__dirname, "./src/styles/**/.scss")
-    ]
+    styles: path.resolve(__dirname, "./src/styles")
 };
 
 /**
@@ -67,14 +65,34 @@ module.exports = {
             {
                 test: /\.s?css/,
                 include: paths.styles,
-                loader: require.resolve('sass-loader'),
-                options: {
-                    sourceMap: mode === "development"
-                }
-            },
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            // you can specify a publicPath here
+                            // by default it uses publicPath in webpackOptions.output
+                            //publicPath: "../",
+                            hmr: process.env.NODE_ENV === "development",
+                        },
+                    },
+                    'css-loader',
+                    {
+                        loader: require.resolve("sass-loader"),
+                        options: {
+                            sourceMap: mode === "development"
+                        }
+                    }
+                ]
+            }
         ],
     },
     resolve: {
-        extensions: ['.js', '.jsx']
-    }
+        extensions: [".js", ".jsx", ".css", ".scss", ".sass"]
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "./bundle.css",
+            ignoreOrder: false, // Enable to remove warnings about conflicting order
+        }),
+    ]
 };
