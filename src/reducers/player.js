@@ -1,4 +1,4 @@
-import { createReducer } from 'redux-toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import PlayerRepeatMode from '../helpers/repeat';
 
 export const playerState = {
