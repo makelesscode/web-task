@@ -6,9 +6,27 @@ import AudioListItem from './AudioListItem';
 class AudioList extends React.Component {
   constructor(props) {
     super(props);
-    // With function binding we can always get access to `this` object,
-    // and therefore its `children` prop.
+    // With function binding we can always get access to the component
     this.getRow = this.getRow.bind(this);
+    this.onWindowResize = this.onWindowResize.bind(this);
+
+    this.state = {
+      height: window.innerHeight,
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.onWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onWindowResize);
+  }
+
+  onWindowResize() {
+    this.setState({
+      height: window.innerHeight,
+    });
   }
 
   getRow({ index, style }) {
@@ -27,10 +45,11 @@ class AudioList extends React.Component {
 
   render() {
     const { children } = this.props;
+    const { height } = this.state;
     return (
       <List
-        height={500}
-        width={300}
+        className="audio-list"
+        height={height}
         itemCount={children.length}
         itemSize={60}
       >
