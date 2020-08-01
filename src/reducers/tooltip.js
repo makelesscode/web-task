@@ -1,7 +1,9 @@
+import { createReducer } from 'redux-toolkit';
+
 const initialState = {
-    content: null,
-    coordX: 0,
-    coordY: 0,
+  content: null,
+  coordX: 0,
+  coordY: 0,
 };
 
-export const tooltip = createReducer(initialState, {});
+export default createReducer(initialState, {});

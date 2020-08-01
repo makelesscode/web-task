@@ -6,7 +6,7 @@ import store from './helpers/store';
 import Page from './components/common/Page';
 
 ReactDOM.render((
-    <Provider store={store}>
-        <Page />
-    </Provider>
-), document.getElementById("root"));
+  <Provider store={store}>
+    <Page />
+  </Provider>
+), document.getElementById('root'));

@@ -1,12 +1,9 @@
-import { update, prepend } from "../actions/list";
+import { createReducer } from 'redux-toolkit';
+import { update, prepend } from '../actions/list';
 
-export const initialState = [];
+const initialState = [];
 
-export const list = createReducer(initialState, {
-    [update]: (state, { payload }) => {
-        return payload;
-    },
-    [prepend]: (state, { payload }) => {
-        return [payload, ...state];
-    }
+export default createReducer(initialState, {
+  [update]: (state, { payload }) => payload,
+  [prepend]: (state, { payload }) => [payload, ...state],
 });
