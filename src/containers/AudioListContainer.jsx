@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { AudioList } from '../components/AudioList';
+import AudioList from '../components/AudioList';
 
 function mapStateToProps(state) {
     return {
