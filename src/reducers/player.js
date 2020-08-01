@@ -1,4 +1,4 @@
-import { PlayerRepeatMode } from 'repeat';
+import { PlayerRepeatMode } from '../helpers/repeat';
 
 const initialState = {
     currentItem: null,
@@ -6,4 +6,4 @@ const initialState = {
     repeatMode: PlayerRepeatMode.None,
 }
 
-export const playerReducer = createReducer(initialState, {});
+export const player = createReducer(initialState, {});
