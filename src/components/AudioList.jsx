@@ -10,6 +10,9 @@ class AudioList extends React.Component {
     this.getRow = this.getRow.bind(this);
     this.onWindowResize = this.onWindowResize.bind(this);
 
+    // By stretching width and height of the FixedSizeList,
+    // we imitate the behavior as if the user scrolled through the actual window,
+    // but in fact it's just the inner <div> of the FixedSizeList
     this.state = {
       height: window.innerHeight,
     };
@@ -44,6 +47,8 @@ class AudioList extends React.Component {
   }
 
   render() {
+    // FixedSizeList from `react-window` is used to handle huge amount of data,
+    // in case if the user stores a lot of audio content
     const { children } = this.props;
     const { height } = this.state;
     return (
