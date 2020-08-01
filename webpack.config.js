@@ -79,7 +79,13 @@ module.exports = {
                     {
                         loader: require.resolve("sass-loader"),
                         options: {
-                            sourceMap: mode === "development"
+                            sourceMap: mode === "development",
+                            sassOptions: {
+                                // used to connect such libs as bootstrap more easily
+                                includePaths: [
+                                    path.resolve(__dirname, "node_modules"),
+                                ]
+                            },
                         }
                     }
                 ]
