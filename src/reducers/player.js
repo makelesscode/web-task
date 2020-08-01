@@ -1,10 +1,10 @@
 import { createReducer } from 'redux-toolkit';
 import PlayerRepeatMode from '../helpers/repeat';
 
-const initialState = {
+export const playerState = {
   currentItem: null,
   similarArtists: [],
   repeatMode: PlayerRepeatMode.None,
 };
 
-export default createReducer(initialState, {});
+export const player = createReducer(playerState, {});

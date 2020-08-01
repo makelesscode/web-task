@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import list from './list';
-import editor from './editor';
-import player from './player';
-import tooltip from './tooltip';
-import uploader from './uploader';
+import { list, listState } from './list';
+import { editor, editorState } from './editor';
+import { player, playerState } from './player';
+import { tooltip, tooltipState } from './tooltip';
+import { uploader, uploaderState } from './uploader';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   list,
   editor,
   player,
@@ -13,4 +13,10 @@ const rootReducer = combineReducers({
   uploader,
 });
 
-export default rootReducer;
+export const rootInitialState = {
+  list: listState,
+  editor: editorState,
+  player: playerState,
+  tooltip: tooltipState,
+  uploader: uploaderState,
+};

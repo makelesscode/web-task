@@ -1,8 +1,8 @@
 import { createReducer } from 'redux-toolkit';
 
-export const initialState = {
+export const uploaderState = {
   visible: false,
   items: [],
 };
 
-export default createReducer(initialState, {});
+export const uploader = createReducer(uploaderState, {});

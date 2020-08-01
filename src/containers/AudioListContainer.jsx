@@ -5,7 +5,6 @@ import AudioList from '../components/AudioList';
 import { update } from '../actions/list';
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     list: state.list,
   };

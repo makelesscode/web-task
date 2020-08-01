@@ -24,7 +24,7 @@ function Tooltip(props) {
 }
 
 Tooltip.propTypes = {
-  content: PropTypes.string.isRequired,
+  content: PropTypes.string,
   coordX: PropTypes.number.isRequired,
   coordY: PropTypes.number.isRequired,
 };

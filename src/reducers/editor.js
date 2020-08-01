@@ -1,8 +1,8 @@
 import { createReducer } from 'redux-toolkit';
 
-const initialState = {
+export const editorState = {
   currentItem: null,
   visible: false,
 };
 
-export default createReducer(initialState, {});
+export const editor = createReducer(editorState, {});
