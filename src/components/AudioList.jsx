@@ -45,7 +45,7 @@ AudioList.propTypes = {
     title: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
-    style: PropTypes.string.isRequired,
+    style: PropTypes.string,
   })).isRequired,
 };
 

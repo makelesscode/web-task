@@ -1,5 +1,5 @@
-export const PlayerRepeatMode = {
-    None: 'none',
-    Track: 'track',
-    List: 'list',
+export default {
+  None: 'none',
+  Track: 'track',
+  List: 'list',
 };
