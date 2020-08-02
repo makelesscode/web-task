@@ -7,6 +7,10 @@ class Dropzone extends React.Component {
   constructor(props) {
     super(props);
     const { onFileListUpdated, multiple, accept } = this.props;
+
+    this.onDragEnter = this.onDragEnter.bind(this);
+    this.onDragLeave = this.onDragLeave.bind(this);
+    this.onDrop = this.onDrop.bind(this);
     this.input = document.createElement('input');
     this.input.type = 'file';
     this.input.multiple = multiple;
@@ -28,28 +32,28 @@ class Dropzone extends React.Component {
     event.preventDefault();
   }
 
-  onDragEnter = (event) => {
+  onDragEnter(event) {
     event.dataTransfer.dropEffect = 'copy';
     this.setState({
       isOver: true,
     });
-  };
+  }
 
-  onDragLeave = (event) => {
+  onDragLeave(event) {
     event.stopPropagation();
     this.setState({
       isOver: false,
     });
-  };
+  }
 
-  onDrop = (event) => {
+  onDrop(event) {
     event.preventDefault();
     const { onFileListUpdated } = this.props;
     this.setState({
       isOver: false,
     });
     onFileListUpdated(event.dataTransfer.files);
-  };
+  }
 
   getInitialContent() {
     return (
