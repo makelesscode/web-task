@@ -16,7 +16,7 @@ function Button(props) {
     <Component
       className={cx(
         'btn',
-        `btn-${(outline && 'outline-') + type}`,
+        `btn-${(outline ? 'outline-' : '') + type}`,
         size && `btn-${size}`,
         className,
       )}
