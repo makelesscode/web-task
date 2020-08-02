@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import FAIcon from './FAIcon';
 
@@ -12,7 +13,7 @@ class Modal extends React.Component {
 
   render() {
     const { title, children, closable } = this.props;
-    return (
+    return ReactDOM.createPortal((
       <div className="modal" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -28,7 +29,7 @@ class Modal extends React.Component {
           </div>
         </div>
       </div>
-    );
+    ), document.body);
   }
 }
 
