@@ -1,9 +1,10 @@
 import React from 'react';
 import FAIcon from './FAIcon';
 import store from '../helpers/store';
+import { show } from '../actions/uploader';
 
 function openUploader() {
-  store.dispatch();
+  store.dispatch(show());
 }
 
 function Navbar() {
