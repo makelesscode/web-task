@@ -35,6 +35,9 @@ module.exports = {
     hot: true,
     port: 3000,
     contentBase: path.join(__dirname, './app/'),
+    proxy: {
+      '/api': 'http://localhost',
+    },
   },
   module: {
     strictExportPresence: true,
