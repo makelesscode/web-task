@@ -19,7 +19,14 @@ class Modal extends React.Component {
   render() {
     const { title, children, closable } = this.props;
     return ReactDOM.createPortal((
-      <div className="modal" tabIndex="-1" role="dialog">
+      <div
+        className="modal show"
+        tabIndex="-1"
+        role="dialog"
+        style={{
+          display: 'block',
+        }}
+      >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
