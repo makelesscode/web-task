@@ -4,7 +4,6 @@ define('APP_ROOT', __DIR__);
 
 require_once APP_ROOT . '/core/config.php';
 require_once APP_ROOT . '/core/functions.php';
-require_once APP_ROOT . '/core/handlers.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
