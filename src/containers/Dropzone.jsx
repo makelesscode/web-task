@@ -11,6 +11,7 @@ class Dropzone extends React.Component {
     this.onDragEnter = this.onDragEnter.bind(this);
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.openDialog = this.openDialog.bind(this);
     this.input = document.createElement('input');
     this.input.type = 'file';
     this.input.multiple = multiple;
@@ -76,10 +77,10 @@ class Dropzone extends React.Component {
     );
   }
 
-  openDialog = (event) => {
+  openDialog(event) {
     event.preventDefault();
     this.input.click();
-  };
+  }
 
   render() {
     const { isOver } = this.state;
