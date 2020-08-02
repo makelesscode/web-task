@@ -35,9 +35,14 @@ function &get_audios_meta() {
     static $_data = null;
 
     if ($_data === null) {
-        $data_text = file_get_contents(APP_ROOT . '/core/metadata.json');
-        $_data = json_decode($data_text);
-        unset($data_text);
+        if (is_file(DATASET_PATH)) {
+            $data_text = file_get_contents($datapath);
+            $_data = json_decode($data_text);
+            unset($data_text);
+        } else {
+            $_data = [];
+            file_put_contents(DATASET_PATH, '[]'); // create empty array 
+        }
     }
 
     return $_data;
