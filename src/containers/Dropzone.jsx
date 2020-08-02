@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
+import Button from '../components/Button';
+
 class Dropzone extends React.Component {
   constructor(props) {
     super(props);
@@ -61,9 +63,9 @@ class Dropzone extends React.Component {
       <div className="initial">
         <span>
           Drag files here or
-          <button type="button" onClick={this.openDialog}>
+          <Button className="ml-2" size="sm" type="primary" onClick={this.openDialog}>
             Browse files
-          </button>
+          </Button>
         </span>
       </div>
     );
