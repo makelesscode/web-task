@@ -1,0 +1,86 @@
+.dropzone {
+  background: lighten($brand-primary, 45%);
+  border: 1px #9a9a9a dashed;
+  border-radius: 4px;
+  color: #878787;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  overflow: hidden;
+  padding: 44px 10px;
+  text-align: center;
+  transition: background .2s, border-color .2s;
+
+  &.initial {
+    .initial {
+      display: block;
+    }
+  }
+
+  &.over {
+    background: #fff;
+
+    .dropover {
+      display: block;
+      pointer-events: none;
+    }
+  }
+
+  &.processing {
+    background: #fff;
+
+    .processing {
+      display: block;
+    }
+  }
+
+  &.success {
+    background: #fff;
+
+    .success {
+      color: $brand-success;
+      display: block;
+
+      a {
+        color: darken($brand-success, 10%);
+
+        &:hover {
+          color: darken($brand-success, 20%);
+        }
+      }
+    }
+  }
+
+  &.error {
+    background: #fff;
+
+    .error {
+      color: $brand-danger;
+      display: block;
+
+      a {
+        color: darken($brand-danger, 10%);
+
+        &:hover {
+          color: darken($brand-danger, 20%);
+        }
+      }
+    }
+  }
+  
+  & > div {
+    display: none;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  .progress {
+    height: 22px;
+
+    &-bar {
+      width: 100%;
+    }
+  }
+}
