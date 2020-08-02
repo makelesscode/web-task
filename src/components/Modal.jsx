@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import FAIcon from './FAIcon';
 
 class Modal extends React.Component {
-  onRequestClose = (forceClose = false) => {
+  constructor(props) {
+    super(props);
+    this.onRequestClose = this.onRequestClose.bind(this);
+  }
+
+  onRequestClose(forceClose = false) {
     const { onRequestClose, closable } = this.props;
     if (forceClose || closable) {
       onRequestClose();
     }
-  };
+  }
 
   render() {
     const { title, children, closable } = this.props;
