@@ -1,5 +1,5 @@
 .dropzone {
-  background: lighten($brand-primary, 45%);
+  background: lighten(theme-color('primary'), 45%);
   border: 1px #9a9a9a dashed;
   border-radius: 4px;
   color: #878787;
@@ -9,21 +9,14 @@
   overflow: hidden;
   padding: 44px 10px;
   text-align: center;
-  transition: background .2s, border-color .2s;
+  transition: background-color .2s, border-color .2s;
 
-  &.initial {
-    .initial {
-      display: block;
-    }
+  > .dropover {
+    pointer-events: none;
   }
 
   &.over {
     background: #fff;
-
-    .dropover {
-      display: block;
-      pointer-events: none;
-    }
   }
 
   &.processing {
@@ -38,14 +31,14 @@
     background: #fff;
 
     .success {
-      color: $brand-success;
+      color: theme-color('success');
       display: block;
 
       a {
-        color: darken($brand-success, 10%);
+        color: darken(theme-color('success'), 10%);
 
         &:hover {
-          color: darken($brand-success, 20%);
+          color: darken(theme-color('success'), 20%);
         }
       }
     }
@@ -55,21 +48,17 @@
     background: #fff;
 
     .error {
-      color: $brand-danger;
+      color: theme-color('danger');
       display: block;
 
       a {
-        color: darken($brand-danger, 10%);
+        color: darken(theme-color('danger'), 10%);
 
         &:hover {
-          color: darken($brand-danger, 20%);
+          color: darken(theme-color('danger'), 20%);
         }
       }
     }
-  }
-  
-  & > div {
-    display: none;
   }
 
   a {

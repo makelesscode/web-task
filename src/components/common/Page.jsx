@@ -1,6 +1,7 @@
 import React from 'react';
 import AudioListContainer from '../../containers/AudioListContainer';
-import TooltipConnected from '../../containers/ConnectedTooltip';
+import ConnectedTooltip from '../../containers/ConnectedTooltip';
+import ConnectedUploaderModal from '../../containers/ConnectedUploaderModal';
 import Navbar from '../Navbar';
 
 function Page() {
@@ -8,7 +9,8 @@ function Page() {
     <>
       <Navbar />
       <AudioListContainer />
-      <TooltipConnected />
+      <ConnectedTooltip />
+      <ConnectedUploaderModal />
     </>
   );
 }
