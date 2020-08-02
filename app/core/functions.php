@@ -30,6 +30,7 @@ function retrieve_webdav_json() {
     }
 }
 
+// approx. schema of the file: [{ hash, artist, title, duration, [release_year], [album_name] }, ...]
 function &get_audios_meta() {
     static $_data = null;
 
