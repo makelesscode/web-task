@@ -8,6 +8,19 @@ function handle_put() {
     }
 
     $file_hash = $path[2];
+    // Look for the actual file. If it doesn't exist, display error
+    $allowed_exts = ['mp3', 'wav'];
+    $filename = null;
+    foreach ($allowed_exts as $ext) {
+        if (is_file(UPLOADS_SERVER_PATH . "{$file_hash}.{$ext}")) {
+            $filename = "{$file_hash}.{$ext}";
+            break;
+        }
+    }
+
+    if ($filename === null) { // filename is still null, therefore no file found.
+        display_api_error(404, 'File not found', 404);
+    }
 
     $req_payload = retrieve_webdav_json();
 
@@ -49,7 +62,10 @@ function get_validated_entry($req_payload) {
         }
     }
 
-    $stored_entry = [];
+    $stored_entry = [
+        'filename' => $filename,
+        'hash' => $file_hash
+    ];
 
     // Following code is repeated a few times with little differences, but outside of this place it is not used,
     // so creating function for validating and sanitization is considered redundant.
