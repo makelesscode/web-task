@@ -36,7 +36,7 @@ function &get_audios_meta() {
 
     if ($_data === null) {
         if (is_file(DATASET_PATH)) {
-            $data_text = file_get_contents($datapath);
+            $data_text = file_get_contents(DATASET_PATH);
             $_data = json_decode($data_text);
             unset($data_text);
         } else {
