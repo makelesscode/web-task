@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 import { getDurationFromSeconds } from '../helpers/duration';
 import Button from './Button';
 import FAIcon from './FAIcon';
+import { setQuery } from '../actions/similar';
+import store from '../helpers/store';
+
+function seeSimilar(artist) {
+  store.dispatch(setQuery(artist));
+}
 
 function AudioListItem(props) {
   const {
@@ -34,7 +40,12 @@ function AudioListItem(props) {
             &mdash;
             {' '}
             {title}
-            <Button size="sm">See similar</Button>
+            <Button size="sm" onClick={
+              (evt) => {
+                evt.stopPropagation();
+                seeSimilar(artist);
+              }
+            }>See similar</Button>
             <span className="d-block float-right">
               <small>{getDurationFromSeconds(duration)}</small>
             </span>
