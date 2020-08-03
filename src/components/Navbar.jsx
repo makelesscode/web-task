@@ -2,6 +2,7 @@ import React from 'react';
 import FAIcon from './FAIcon';
 import store from '../helpers/store';
 import { show } from '../actions/uploader';
+import Player from '../containers/Player';
 
 function openUploader() {
   store.dispatch(show());
@@ -19,6 +20,7 @@ function Navbar() {
         <button className="navbar-toggler" type="button" aria-label="Toggle navigation">
           <FAIcon icon="bars" />
         </button>
+        <Player />
         <div className="collapse navbar-collapse">
           <div className="ml-auto">
             <button className="btn btn-outline-light my-2 my-sm-0" type="button" onClick={openUploader}>Upload</button>
