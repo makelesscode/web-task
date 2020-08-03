@@ -2,12 +2,17 @@ const LAST_FM_API_KEY = 'cb56569e3a7d3d88d0747b47a0d9469a';
 const LAST_FM_API_URL = 'http://ws.audioscrobbler.com/2.0/';
 const APP_API_URL = '/api/audios';
 
-export async function retrieveRemoteJSON(url, data, method = 'GET') {
-  const body = new FormData();
+export async function retrieveRemoteJSON(url, data = {}, method = 'GET', useJSON = false) {
+  let body;
 
-  Object.keys(data).forEach((prop) => {
-    body.append(prop, data[prop]);
-  });
+  if (useJSON) {
+    body = JSON.stringify(data);
+  } else {
+    body = new FormData();
+    Object.keys(data).forEach((prop) => {
+      body.append(prop, data[prop]);
+    });
+  }
 
   let response = null;
   const raw = await fetch(url, {
@@ -71,12 +76,15 @@ export function uploadAudio(file, onProgress) {
   );
 }
 
-export function getAudioListData() {
-  return retrieveRemoteJSON(APP_API_URL);
+export async function getAudioListData() {
+  const raw = await fetch(APP_API_URL, {
+    method: 'GET',
+  });
+  return raw.json();
 }
 
 export function updateAudioData(hash, data) {
-  return retrieveRemoteJSON(`${APP_API_URL}/${hash}`, data, 'PUT');
+  return retrieveRemoteJSON(`${APP_API_URL}/${hash}`, data, 'PUT', true);
 }
 
 export function deleteAudio(hash) {
