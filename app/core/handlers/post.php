@@ -25,6 +25,7 @@ function handle_post() {
     }
 
     $file_hash = md5_file($audio['tmp_name']);
+    $file_hash = md5($file_hash . rand(0, 1000)); // just to make files unique
     $uploaded_filename = "{$file_hash}.{$file_ext}";
 
     if (!move_uploaded_file(
