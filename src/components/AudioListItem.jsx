@@ -4,35 +4,53 @@ import PropTypes from 'prop-types';
 import { getDurationFromSeconds } from '../helpers/duration';
 import Button from './Button';
 import FAIcon from './FAIcon';
-import { setQuery } from '../actions/similar';
 import store from '../helpers/store';
-
-function seeSimilar(artist) {
-  store.dispatch(setQuery(artist));
-}
+import cx from 'classnames';
 
 function AudioListItem(props) {
   const {
-    artist, title, duration, style, isPlaying, onClick, hash, src,
+    artist,
+    title,
+    duration,
+    style,
+    isPlaying,
+    hash,
+    src,
+    playerPaused,
+    play,
+    pause,
+    setItem,
+    setQuery: seeSimilar
   } = props;
+
+  const onItemClick = () => {
+    if (isPlaying) {
+      if (playerPaused) {
+        play();
+      } else {
+        pause();
+      }
+    } else {
+      setItem({
+        artist,
+        title,
+        duration,
+        hash,
+        src,
+      });
+    }
+  }
+
   return (
     <div style={style}>
       <div className="container">
         <div
           role="listitem"
-          className="audio-list__item"
-          onClick={() => {
-            onClick({
-              artist,
-              title,
-              duration,
-              hash,
-              src,
-            });
-          }}
+          className={cx('audio-list__item', { active: isPlaying })}
+          onClick={onItemClick}
         >
           <Button type="primary" size="lg" className="float-left">
-            <FAIcon icon={isPlaying ? 'pause' : 'play'} />
+            <FAIcon icon={isPlaying && !playerPaused ? 'pause' : 'play'} />
           </Button>
           <h6>
             {artist}
@@ -62,7 +80,11 @@ AudioListItem.propTypes = {
   duration: PropTypes.number.isRequired,
   style: PropTypes.shape().isRequired,
   isPlaying: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  playerPaused: PropTypes.bool.isRequired,
+  setItem: PropTypes.func.isRequired,
+  pause: PropTypes.func.isRequired,
+  play: PropTypes.func.isRequired,
+  setQuery: PropTypes.func.isRequired,
   hash: PropTypes.string.isRequired,
 };
 

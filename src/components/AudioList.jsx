@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FixedSizeList as List } from 'react-window';
-import AudioListItem from './AudioListItem';
+import ConnectedAudioListItem from '../containers/ConnectedAudioListItem';
 
 class AudioList extends React.Component {
   constructor(props) {
@@ -33,18 +33,17 @@ class AudioList extends React.Component {
   }
 
   getRow({ index, style }) {
-    const { children, onItemClick } = this.props;
+    const { children } = this.props;
     const item = children[index];
 
     return (
-      <AudioListItem
+      <ConnectedAudioListItem
         title={item.title}
         duration={item.duration}
         artist={item.artist}
         src={item.src}
         hash={item.hash}
         style={style}
-        onClick={onItemClick}
       />
     );
   }
@@ -76,7 +75,6 @@ AudioList.propTypes = {
     hash: PropTypes.string.isRequired,
     style: PropTypes.string,
   })).isRequired,
-  onItemClick: PropTypes.func.isRequired,
 };
 
 export default AudioList;
