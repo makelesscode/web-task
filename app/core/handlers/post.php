@@ -12,7 +12,7 @@ function handle_post() {
     }
 
     $allowed_exts = ['mp3', 'wav'];
-    $file_ext = strtolower(end(explode('.'), $audio['name']));
+    $file_ext = strtolower(end(explode('.', $audio['name'])));
 
     if (!in_array($file_ext, $allowed_exts)) {
         // 415 http response code is for 'media not supported'
