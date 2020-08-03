@@ -1,0 +1,17 @@
+.player {
+  color: #fff;
+
+  &__name {
+    padding-left: 10px;
+  }
+
+  &__duration {
+    padding-left: 10px;
+    font-size: .8em;
+    color: rgba(255, 255, 255, .8);
+  }
+
+  > button {
+    margin-left: 10px;
+  }
+}

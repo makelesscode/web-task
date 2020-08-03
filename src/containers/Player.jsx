@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { play, pause, setItem } from '../actions/player';
 import Button from '../components/Button';
 import { getDurationFromSeconds } from '../helpers/duration';
+import FAIcon from '../components/FAIcon';
 
 class Player extends React.Component {
   constructor(props) {
@@ -62,8 +63,8 @@ class Player extends React.Component {
     }
     return (
       <div className="player">
-        <Button type="primary" onClick={this.onPlayToggle}>
-          {paused ? 'Play' : 'Pause'}
+        <Button type="light" onClick={this.onPlayToggle}>
+          <FAIcon icon={paused ? 'play' : 'pause'} />
         </Button>
         <span className="player__name">
           {artist}
