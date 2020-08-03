@@ -59,7 +59,12 @@ module.exports = {
         options: {
           presets: [
             '@babel/preset-react',
-            '@babel/preset-env',
+            [
+              '@babel/preset-env',
+              {
+                useBuiltIns: 'entry',
+              },
+            ],
           ],
           cacheDirectory: true, // caching for faster rebuilds (babel-loader)
           cacheCompression: false,
