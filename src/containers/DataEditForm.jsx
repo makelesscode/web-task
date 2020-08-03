@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputFormGroup from '../components/InputFormGroup';
 import InputField from '../components/InputField';
+import { getSecondsFromDuration } from '../helpers/duration';
 
 class DataEditForm extends React.Component {
   constructor(props) {
@@ -10,13 +11,13 @@ class DataEditForm extends React.Component {
     this.requiredFields = [];
   }
 
-  getChangeHandler(name, valueRequired) {
+  getChangeHandler(name, valueRequired, enhancer = null) {
     const { onValidationFail, onValidationSuccess } = this.props;
     if (valueRequired) {
       this.requiredFields.push(name);
     }
     return (newValue) => {
-      this.values[name] = newValue;
+      this.values[name] = enhancer !== null ? enhancer(newValue) : newValue;
       if (!newValue && valueRequired) {
         onValidationFail();
       } else if (this.checkRequiredValues()) {
@@ -51,7 +52,7 @@ class DataEditForm extends React.Component {
             type="time"
             step="1"
             disabled={disabled}
-            onChange={this.getChangeHandler('duration', true)}
+            onChange={this.getChangeHandler('duration', false, getSecondsFromDuration)}
           />
         </InputFormGroup>
         <InputFormGroup name="Album">
@@ -64,7 +65,6 @@ class DataEditForm extends React.Component {
             onChange={this.getChangeHandler('release_year')}
             min={1}
             max={year}
-            value={year}
           />
         </InputFormGroup>
       </>
