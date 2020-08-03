@@ -1,5 +1,8 @@
+function getLeadingZero(n) {
+  return n < 10 ? `0${n}` : n.toString();
+}
 export function getDurationFromSeconds(duration) {
-  return `${Math.floor(duration / 60)}:${duration % 60}`;
+  return `${getLeadingZero(Math.floor(duration / 60))}:${getLeadingZero(Math.floor(duration % 60))}`;
 }
 
 export function getDurationLeft(secsTotal, secsLeft) {
