@@ -37,7 +37,10 @@ function &get_audios_meta() {
     if ($_data === null) {
         if (is_file(DATASET_PATH)) {
             $data_text = file_get_contents(DATASET_PATH);
-            $_data = json_decode($data_text);
+            $_data = json_decode($data_text, true);
+            if ($_data === null) {
+                $_data = [];
+            }
             unset($data_text);
         } else {
             $_data = [];
@@ -50,5 +53,5 @@ function &get_audios_meta() {
 
 function update_dataset($updated_dataset) {
     $json = json_encode($updated_dataset);
-    file_put_contents(APP_ROOT . '/core/metadata.json', $updated_dataset);
+    file_put_contents(APP_ROOT . '/core/metadata.json', $json);
 }
