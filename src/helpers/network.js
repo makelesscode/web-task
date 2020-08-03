@@ -1,6 +1,6 @@
 const LAST_FM_API_KEY = 'cb56569e3a7d3d88d0747b47a0d9469a';
 const LAST_FM_API_URL = 'http://ws.audioscrobbler.com/2.0/';
-const APP_API_URL = 'http://localhost/api/audios';
+const APP_API_URL = '/api/audios';
 
 export async function retrieveRemoteJSON(url, data, method = 'GET') {
   const body = new FormData();
