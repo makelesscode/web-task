@@ -56,11 +56,16 @@ export function uploadToURL(url, originalData = {}, onUpdateProgress = null) {
   });
 }
 
-export function makeLastFmApiCall(method, data) {
+export async function makeLastFmApiCall(method, data) {
   data.api_key = LAST_FM_API_KEY;
   data.format = 'json';
   data.method = method;
-  return retrieveRemoteJSON(LAST_FM_API_URL, data);
+  const url = new URL(LAST_FM_API_URL);
+  Object.keys(data).forEach((key) => url.searchParams.append(key, data[key]));
+  const raw = await fetch(url, {
+    method: 'GET',
+  });
+  return raw.json();
 }
 
 export function getLastFmSimilarArtists(artist) {
