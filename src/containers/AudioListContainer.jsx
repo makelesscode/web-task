@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AudioList from '../components/AudioList';
 import { update } from '../actions/list';
+import { getAudioListData } from '../helpers/network';
+import AudioListLoadingScreen from '../components/AudioListLoadingScreen';
+import AudioListEmptyScreen from '../components/AudioListEmptyScreen';
+import AudioListErrorScreen from '../components/AudioListErrorScreen';
 
 function mapStateToProps(state) {
   return {
@@ -17,23 +21,45 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AudioListContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: false,
+      loading: false,
+    };
+  }
+
   componentDidMount() {
     const { updateList } = this.props;
-    const TEST_ITEMS = [];
-
-    for (let i = 0; i < 1000; i += 1) {
-      TEST_ITEMS.push({
-        title: 'Test',
-        artist: 'Test 2',
-        duration: 100,
+    this.setState({
+      loading: true,
+    });
+    getAudioListData().then((list) => {
+      this.setState({
+        loading: false,
       });
-    }
-
-    updateList(TEST_ITEMS);
+      updateList(list);
+    }).catch(() => {
+      this.setState({
+        error: true,
+      });
+    });
   }
 
   render() {
     const { list } = this.props;
+    const { error, loading } = this.state;
+    if (loading) {
+      return <AudioListLoadingScreen />;
+    }
+    if (error) {
+      return <AudioListErrorScreen />;
+    }
+    if (list.length === 0) {
+      return <AudioListEmptyScreen />;
+    }
+
     return (<AudioList>{list}</AudioList>);
   }
 }
@@ -44,7 +70,7 @@ AudioListContainer.propTypes = {
     title: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
-    style: PropTypes.string,
+    style: PropTypes.shape().isRequired, // a dirty hack to avoid eslint errors
   })).isRequired,
 };
 
