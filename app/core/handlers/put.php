@@ -12,7 +12,7 @@ function handle_put() {
     $allowed_exts = ['mp3', 'wav'];
     $filename = null;
     foreach ($allowed_exts as $ext) {
-        if (is_file(UPLOADS_SERVER_PATH . "{$file_hash}.{$ext}")) {
+        if (is_file(UPLOADS_SERVER_PATH . "/{$file_hash}.{$ext}")) {
             $filename = "{$file_hash}.{$ext}";
             break;
         }
@@ -25,6 +25,9 @@ function handle_put() {
     $req_payload = retrieve_webdav_json();
 
     $stored_entry = get_validated_entry($req_payload);
+
+    $stored_entry['filename'] = $filename;
+    $stored_entry['hash'] = $file_hash;
 
     // Save entry to the database
 
@@ -42,10 +45,14 @@ function handle_put() {
 
     if (!$entry_exists) {
         // If entry does not exist, put a new one to the beginning of the dataset
-        array_unshift($data, $entry);
+        array_unshift($data, $stored_entry);
     }
 
     update_dataset($data);
+
+    $stored_entry['src'] = UPLOADS_PUBLIC_PATH . '/' . $stored_entry['filename'];
+    unset($stored_entry['filename']);
+    return $stored_entry;
 
 }
 
@@ -61,11 +68,6 @@ function get_validated_entry($req_payload) {
             display_api_error(400, "Required field '{$field}' is missing.");
         }
     }
-
-    $stored_entry = [
-        'filename' => $filename,
-        'hash' => $file_hash
-    ];
 
     // Following code is repeated a few times with little differences, but outside of this place it is not used,
     // so creating function for validating and sanitization is considered redundant.
@@ -117,4 +119,6 @@ function get_validated_entry($req_payload) {
 
         $stored_entry['release_year'] = $req_payload['release_year'];
     }
+
+    return $stored_entry;
 }
