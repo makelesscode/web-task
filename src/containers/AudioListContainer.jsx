@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AudioList from '../components/AudioList';
 import { update } from '../actions/list';
+import { setItem as setPlayerItem } from '../actions/player';
 import { getAudioListData } from '../helpers/network';
 import AudioListLoadingScreen from '../components/AudioListLoadingScreen';
 import AudioListEmptyScreen from '../components/AudioListEmptyScreen';
@@ -17,6 +18,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateList: (list) => dispatch(update(list)),
+    onItemClick: (item) => dispatch(setPlayerItem(item)),
   };
 }
 
@@ -48,7 +50,7 @@ class AudioListContainer extends React.Component {
   }
 
   render() {
-    const { list } = this.props;
+    const { list, onItemClick } = this.props;
     const { error, loading } = this.state;
     if (loading) {
       return <AudioListLoadingScreen />;
@@ -60,17 +62,17 @@ class AudioListContainer extends React.Component {
       return <AudioListEmptyScreen />;
     }
 
-    return (<AudioList>{list}</AudioList>);
+    return (<AudioList onItemClick={onItemClick}>{list}</AudioList>);
   }
 }
 
 AudioListContainer.propTypes = {
   updateList: PropTypes.func.isRequired,
+  onItemClick: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
-    style: PropTypes.shape().isRequired, // a dirty hack to avoid eslint errors
   })).isRequired,
 };
 

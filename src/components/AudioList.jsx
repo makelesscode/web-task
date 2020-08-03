@@ -33,7 +33,7 @@ class AudioList extends React.Component {
   }
 
   getRow({ index, style }) {
-    const { children } = this.props;
+    const { children, onItemClick } = this.props;
     const item = children[index];
 
     return (
@@ -41,7 +41,10 @@ class AudioList extends React.Component {
         title={item.title}
         duration={item.duration}
         artist={item.artist}
+        src={item.src}
+        hash={item.hash}
         style={style}
+        onClick={onItemClick}
       />
     );
   }
@@ -69,8 +72,11 @@ AudioList.propTypes = {
     title: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
+    src: PropTypes.string.isRequired,
+    hash: PropTypes.string.isRequired,
     style: PropTypes.string,
   })).isRequired,
+  onItemClick: PropTypes.func.isRequired,
 };
 
 export default AudioList;
