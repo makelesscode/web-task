@@ -23,5 +23,6 @@ export const player = createReducer(playerState, {
     state.artist = payload.artist;
     state.title = payload.title;
     state.duration = payload.duration;
+    state.paused = false;
   },
 });
