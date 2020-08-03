@@ -24,6 +24,9 @@ services:
     working_dir: /var/www
     volumes:
       - type: bind
+        source: ./php.ini
+        target: /usr/local/etc/php/conf.d/project.ini
+      - type: bind
         source: ./app
         target: /var/www
     restart: always
