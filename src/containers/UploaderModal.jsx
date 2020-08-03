@@ -22,12 +22,16 @@ class UploaderModal extends React.Component {
     this.state = {
       formWaiting: false,
       formSending: false,
+      formValid: false,
       formError: false,
     };
 
     this.formValues = {};
+    this.fileHash = null;
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onFormInvalid = this.onFormInvalid.bind(this);
+    this.onFormValid = this.onFormValid.bind(this);
     this.onRequestClose = this.onRequestClose.bind(this);
     this.onUploadStart = this.onUploadStart.bind(this);
     this.onUploadProgress = this.onUploadProgress.bind(this);
@@ -36,8 +40,11 @@ class UploaderModal extends React.Component {
   }
 
   onRequestClose() {
-    const { hide: hideModal } = this.props;
-    hideModal();
+    const { hide: hideModal, status } = this.props;
+    const { formWaiting, formSending } = this.state;
+    if (!formWaiting && !formSending && status !== UploadStatus.Uploading) {
+      hideModal();
+    }
   }
 
   onUploadStart(file) {
@@ -75,17 +82,21 @@ class UploaderModal extends React.Component {
   }
 
   onFormValid(values) {
-    this.formValid = true;
+    this.setState({
+      formValid: true,
+    });
     this.formValues = values;
   }
 
   onFormInvalid() {
-    this.formValid = false;
+    this.setState({
+      formValid: false,
+    });
   }
 
   onFormSubmit() {
-    const { formSaving, formWaiting } = this.state;
-    if (formSaving || formWaiting) {
+    const { formSending, formWaiting, formValid } = this.state;
+    if (formSending || formWaiting || !formValid) {
       return;
     }
 
@@ -95,25 +106,27 @@ class UploaderModal extends React.Component {
       formError: false,
     });
 
-    this.sendForm();
+    if (this.fileHash) {
+      this.sendForm();
+    }
   }
 
   getSaveCaption() {
-    const { formWaiting, formSaving } = this.state;
-    if (formSaving) {
+    const { formWaiting, formSending } = this.state;
+    if (formSending) {
       return 'Saving...';
     }
     if (formWaiting) {
-      return 'Uploading file...';
+      return 'Waiting for file to upload...';
     }
     return 'Submit';
   }
 
   sendForm() {
-    const { prependList } = this.props;
+    const { prependList, hide: hideModal } = this.props;
     updateAudioData(this.fileHash, this.formValues).then((response) => {
       prependList(response);
-      this.onRequestClose();
+      hideModal();
     }).catch(() => {
       this.setState({
         formWaiting: false,
@@ -131,12 +144,21 @@ class UploaderModal extends React.Component {
       bytesUploaded,
       status,
     } = this.props;
-    const { formWaiting, formSending, formError } = this.state;
+    const {
+      formWaiting,
+      formValid,
+      formSending,
+      formError,
+    } = this.state;
     if (!visible) {
       return null;
     }
     return (
-      <Modal title="Upload a file" onRequestClose={this.onRequestClose}>
+      <Modal
+        title="Upload a file"
+        onRequestClose={this.onRequestClose}
+        closable={!formWaiting && !formSending && status !== UploadStatus.Uploading}
+      >
         <div className="modal-body">
           <FileUploadContainer
             filename={filename}
@@ -159,7 +181,7 @@ class UploaderModal extends React.Component {
           <Button
             type="primary"
             onClick={this.onFormSubmit}
-            className={formWaiting && formSending ? 'disabled' : ''}
+            className={formWaiting || formSending || !formValid ? 'disabled' : ''}
           >
             {this.getSaveCaption()}
           </Button>

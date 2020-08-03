@@ -30,9 +30,9 @@ class FileUploadContainer extends React.Component {
       onFail,
     } = this.props;
 
-    uploadAudio(file, onProgress).then(() => {
+    uploadAudio(file, onProgress).then((response) => {
       this.currentFile = null;
-      onSuccess();
+      onSuccess(response);
     }).catch(onFail);
     onStart(file);
     this.currentFile = file;
@@ -68,7 +68,7 @@ class FileUploadContainer extends React.Component {
       case UploadStatus.Error:
         return (<FileUploadError retry={this.retryUpload} />);
       case UploadStatus.Completed:
-        return (<FileUploadSuccess retry={this.retryUpload} />);
+        return (<FileUploadSuccess />);
       default:
         return null;
     }
