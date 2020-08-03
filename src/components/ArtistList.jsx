@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import ArtistListItem from './ArtistListItem';
 
 function ArtistList({ children }) {
+  if (children.length === 0) {
+    return (<p className="lead">No artists found.</p>);
+  }
   return (
     <div className="list-group">
       {children.map((child) => (
