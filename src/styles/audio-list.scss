@@ -9,6 +9,23 @@
   &--offset {
     margin-top: 80px;
   }
+
+  &__item {
+    padding: 15px;
+    border-bottom: 1px #eee solid;
+
+    &.active {
+      background: #dde9ff;
+    }
+
+    > h6 {
+      padding-left: 80px;
+    }
+
+    .btn {
+      margin-left: 10px;
+    }
+  }
 }
 
 
