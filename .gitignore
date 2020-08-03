@@ -3,3 +3,5 @@
 node_modules
 /app/core/metadata.json
 /app/audios
+/app/bundle.js
+/app/bundle.css
